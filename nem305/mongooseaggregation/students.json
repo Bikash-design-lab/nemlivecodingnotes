@@ -1,0 +1,22 @@
+[
+  { "name": "Alice", "age": 18, "gender": "Female", "district": "North", "state": "California", "marks": 85 },
+  { "name": "Bob", "age": 19, "gender": "Male", "district": "South", "state": "California", "marks": 90 },
+  { "name": "Charlie", "age": 20, "gender": "Male", "district": "East", "state": "Texas", "marks": 78 },
+  { "name": "Diana", "age": 18, "gender": "Female", "district": "West", "state": "Texas", "marks": 92 },
+  { "name": "Ella", "age": 21, "gender": "Female", "district": "North", "state": "California", "marks": 87 },
+  { "name": "Frank", "age": 22, "gender": "Male", "district": "South", "state": "California", "marks": 75 },
+  { "name": "Grace", "age": 19, "gender": "Female", "district": "East", "state": "Florida", "marks": 88 },
+  { "name": "Henry", "age": 20, "gender": "Male", "district": "West", "state": "Florida", "marks": 82 },
+  { "name": "Ivy", "age": 18, "gender": "Female", "district": "North", "state": "California", "marks": 91 },
+  { "name": "Jack", "age": 19, "gender": "Male", "district": "South", "state": "Florida", "marks": 84 },
+  { "name": "Kevin", "age": 21, "gender": "Male", "district": "East", "state": "Texas", "marks": 73 },
+  { "name": "Laura", "age": 22, "gender": "Female", "district": "West", "state": "California", "marks": 89 },
+  { "name": "Mia", "age": 20, "gender": "Female", "district": "North", "state": "Florida", "marks": 77 },
+  { "name": "Nathan", "age": 18, "gender": "Male", "district": "South", "state": "California", "marks": 85 },
+  { "name": "Olivia", "age": 19, "gender": "Female", "district": "East", "state": "Texas", "marks": 92 },
+  { "name": "Paul", "age": 20, "gender": "Male", "district": "West", "state": "California", "marks": 80 },
+  { "name": "Quincy", "age": 21, "gender": "Male", "district": "North", "state": "Florida", "marks": 86 },
+  { "name": "Rita", "age": 22, "gender": "Female", "district": "South", "state": "Texas", "marks": 88 },
+  { "name": "Steve", "age": 18, "gender": "Male", "district": "East", "state": "Florida", "marks": 79 },
+  { "name": "Tina", "age": 19, "gender": "Female", "district": "West", "state": "California", "marks": 90 }
+]
