@@ -1,5 +1,5 @@
 [
-  { "_id": 1, "name": "Alice", "email": "alice@example.com", "status": "active" },
-  { "_id": 2, "name": "Bob", "email": "bob@example.com", "status": "inactive" },
-  { "_id": 3, "name": "Charlie", "email": "charlie@example.com", "status": "active" }
+  { "_id": 1, "name": "Alice", "email": "alice@example.com", "status": "active", numberOfAccounts:1 },
+  { "_id": 2, "name": "Bob", "email": "bob@example.com", "status": "inactive",numberOfAccounts:2},
+  { "_id": 3, "name": "Charlie", "email": "charlie@example.com", "status": "active",numberOfAccounts:3 }
 ]
