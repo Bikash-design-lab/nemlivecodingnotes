@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 10;
+            justify-content: center;
+            align-items: center;
+            background-color: teal;
+            width: 50%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <form action="/reset_password" method="POST">
+        <input name="password" type="text" placeholder="Enter New Password">
+        <input type="submit" value="Reset Password">
+    </form>
+</body>
+</html>
