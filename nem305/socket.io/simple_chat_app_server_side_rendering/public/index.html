@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <select name="" id="select">
+      <option value="">Choose User</option>
+      <option value="admin">Admin</option>
+      <option value="client">client</option>
+    </select>
+    <hr />
+    <button onClick="registerFn()">Register</button>
+    <hr />
+    <input type="number" placeholder="Enter Room Number To Join" id="room" />
+    <button onclick="joinRoom()">Join the Room</button>
+    <hr />
+    <input type="text" placeholder="Enter Message" id="inbox" />
+    <button onclick="sendMessage()">Send Message</button>
+    <hr />
+    <button onClick="disconnectFn()"> Disconnect </button>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    let role = "";
+    let roomNumber = "";
+    let clientId = "";
+    function registerFn() {
+      let roleValue = document.getElementById("select").value;
+      role = roleValue
+      // emit the register event
+      socket.emit("register", roleValue);
+    }
+
+    function sendMessage() {
+      let message = document.getElementById("inbox").value;
+      let roomNumber = document.getElementById("room").value;
+      console.log(role, roomNumber, message)
+      if(role=="client" && roomNumber !=""){
+        socket.emit("room_message", { roomNumber, message });
+      }else{
+        socket.emit("private_message", { to: "admin", message });
+      }
+    }
+
+    function joinRoom() {
+      let roomNumber = document.getElementById("room").value;
+      socket.emit("join_room", roomNumber);
+    }
+
+    socket.on("client_id", (id)=>{
+        clientId = id;
+        console.log("clientid", clientId)
+    })
+
+    function disconnectFn(){
+        console.log("clicked")
+        socket.disconnect()
+    }
+  </script>
+</html>
