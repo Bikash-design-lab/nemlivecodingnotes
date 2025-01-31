@@ -21,6 +21,10 @@
     <button onclick="sendMessage()">Send Message</button>
     <hr />
     <button onClick="disconnectFn()"> Disconnect </button>
+    <hr>
+    <div>
+      <ul id="chat_list"></ul>
+    </div>
   </body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
@@ -61,5 +65,22 @@
         console.log("clicked")
         socket.disconnect()
     }
+
+    socket.on("update_chat_history", (chat_history)=>{
+      /// get the ul tag in the frontend.
+      // get data from backend and append the data in the
+      // form of li tags to the ul tag
+
+      let chat_list = document.getElementById("chat_list");
+      chat_list.innerHTML = "";
+      // data coming from backend
+      chat_history.forEach((msg)=>{
+       let li = document.createElement("li");
+       li.textContent = `${msg.from}:${msg.message}`;
+       chat_list.appendChild(li)
+      })
+      
+      
+    })
   </script>
 </html>

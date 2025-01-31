@@ -9,7 +9,8 @@ const io = new Server(server);
 app.use(express.static("public")); // mw
 
 
-let chat_history = [];
+let chat_history = {};
+
 /// event
 let adminSocket = null;
 
@@ -48,18 +49,26 @@ io.on("connection", (socket) => {
     // room is coming from frontEnd
     socket.join(room);
     console.log("client joined to the room");
+    io.to(room).emit("update_chat_history", chat_history[room]);
+
   });
 
-  socket.on("room_message", ({roomNumber, message})=>{
+  socket.on("room_message", ({ roomNumber, message }) => {
     // io is responsible to manage the rooms
-    io.to(roomNumber).emit("message",{ from: socket.id, message } )
-    console.log({ from: socket.id, message })
-  })
+    // store in the object
+    if(chat_history[roomNumber]==undefined){
+      chat_history[roomNumber] = []
+    }else{
+      chat_history[roomNumber].push({ from: socket.id, message })
+    }
+    io.to(roomNumber).emit("update_chat_history", chat_history[roomNumber]);
+    console.log({ from: socket.id, message });
+  });
 
-  socket.on("disconnect", ()=>{
+  socket.on("disconnect", () => {
     clients.delete(socket.id);
-    console.log(socket.id, "disconnected")
-  })
+    console.log(socket.id, "disconnected");
+  });
 });
 
 server.listen(9000, () => {
