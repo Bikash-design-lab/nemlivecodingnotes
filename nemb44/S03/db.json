@@ -1,0 +1,19 @@
+{
+  "todos": [
+    { "id": 1, "name": "Learn Backend", "status": false },
+    { "id": 2, "name": "Learn Express", "status": false },
+    { "name": "Learn fs module", "status": false, "id": 4 }
+  ],
+  "blogs": [
+    {
+      "id": 1,
+      "name": "Need of backend",
+      "desc": "backend is backbone of any project"
+    },
+    {
+      "id": 2,
+      "name": "Need of Frontend",
+      "desc": "Frontend is User Interface"
+    }
+  ]
+}
