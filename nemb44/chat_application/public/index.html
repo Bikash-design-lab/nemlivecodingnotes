@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #chatArea {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h4>This is html page rendered by express</h4>
+    <h3 id="userName"></h3>
+    <div id="registerDiv">
+      <input id="name" type="text" placeholder="Enter Name" />
+      <button id="register">Register</button>
+    </div>
+    <ul id="onlineUsers"></ul>
+    <div id="chatArea">
+      <h3 id="chatterName"></h3>
+      <!-- Will display the chat also inout and button to send the chat -->
+      <input id="sendMessageText" type="text" placeholder="Enter Message" />
+      <button id="sendMessage">Send Message</button>
+    </div>
+    <ul id="chats"></ul>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    // automatically connecting to the socket system
+    const socket = io();
+    let fromUserName = "";
+    let toSenderName = "";
+    let register = document.getElementById("register");
+    register.addEventListener("click", () => {
+      // get the name form input tag & send to backend with event register
+      let name = document.getElementById("name").value;
+      // console.log(name)
+      // Firing the register event
+      socket.emit("register", name);
+      fromUserName = name;
+      document.getElementById(
+        "userName"
+      ).textContent = `Hello, ${fromUserName}`;
+      document.getElementById("registerDiv").style.display = "none";
+    });
+
+    socket.on("onlineUsers", (users) => {
+      /// I will map into array of users and display their names in the form of buttons
+      // so that we can click on the userName and start chatting
+      let ul = document.getElementById("onlineUsers");
+      for (let [toUserName, socketId] of users) {
+        if (fromUserName != toUserName) {
+          let li = document.createElement("li");
+          li.innerHTML = `<button onClick="startChat('${toUserName}', '${socketId}')">${toUserName}</button>`;
+          ul.appendChild(li);
+        }
+      }
+    });
+
+    function startChat(toUserName, socketId) {
+      // console.log(toUserName,socketId)
+      alert(`Chat Initiated with ${toUserName}`);
+      let chatArea = document.getElementById("chatArea");
+      chatArea.style.display = "block";
+      toSenderName = toUserName;
+      document.getElementById(
+        "chatterName"
+      ).textContent = `Chatting with ${toUserName}`;
+    }
+
+    /// event for sendMessage
+    let sendMessage = document.getElementById("sendMessage");
+    sendMessage.addEventListener("click", () => {
+      let sendMessageText = document.getElementById("sendMessageText").value;
+      /// This sendMessageText along with from name, to name to be sent to backend
+      /// emitting an event
+      socket.emit("sendMessage", {
+        fromUserName,
+        toSenderName,
+        sendMessageText,
+      });
+    });
+
+    // socket listens getting ChatHistory
+    socket.on("chatHistory", (chatArray) => {
+      console.log("The below console works, when sendMessage is clicked");
+      //console.log(chatArray)
+      let chats = document.getElementById("chats");
+      chats.innerHTML = "";
+      let specificChats = chatArray.filter((el, i) => {
+        /// filtering specific users chat
+        /// if Alice & Bob are chatting
+        /// I am filtering ALice As sender & Bob as receiver or Bob as sender and Alice as receiver chats
+        if (
+          (el.fromUserName == fromUserName &&
+            el.toSenderName == toSenderName) ||
+          (el.fromUserName == toSenderName && el.toSenderName == fromUserName)
+        ) {
+          return el;
+        }
+      });
+
+      specificChats.map((el, i) => {
+        // el is fromUserName, toSenderName, message
+        console.log(el);
+        let li = document.createElement("li");
+        li.innerHTML = `<p>${el.fromUserName}: ${el.sendMessageText}</p>`;
+        chats.appendChild(li);
+      });
+    });
+
+    socket.on("newMessage",({fromUserName,toSenderName,sendMessageText,})=>{
+        let chats = document.getElementById("chats");
+        let li = document.createElement("li");
+        li.innerHTML = `<p>${fromUserName}: ${sendMessageText}</p>`;
+        chats.appendChild(li);
+    } )
+  </script>
+</html>
