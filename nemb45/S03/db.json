@@ -1,0 +1,21 @@
+{
+  "todos": [
+    {
+      "id": 2,
+      "title": "Learn Express, path params",
+      "description": "This helps in getting req & sending res",
+      "status": false
+    },
+    {
+      "title": "Learn Postman",
+      "description": "It is bestfrnd of BED",
+      "id": 3
+    },
+    {
+      "title": "Post Request",
+      "description": "It is bestfrnd of BED",
+      "id": 4
+    }
+  ],
+  "blogs": [{ "id": 1, "tite": "Blog 1" }]
+}
